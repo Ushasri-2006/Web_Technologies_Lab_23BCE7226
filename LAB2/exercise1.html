@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>HTML5 Canvas</title>
+</head>
+<body>
+
+    <h2>HTML5 Canvas Example</h2>
+
+    <!-- Canvas Element -->
+    <canvas id="myCanvas" width="500" height="300" style="border:1px solid black;">
+        Your browser does not support the HTML5 canvas tag.
+    </canvas>
+
+    <script>
+        // Access the canvas
+        const canvas = document.getElementById("myCanvas");
+        const ctx = canvas.getContext("2d");
+
+        // 1. Filled Rectangle
+        ctx.fillStyle = "lightblue";
+        ctx.fillRect(20, 20, 150, 80);
+
+        // 2. Filled Circle
+        ctx.beginPath();
+        ctx.arc(300, 80, 40, 0, 2 * Math.PI);
+        ctx.fillStyle = "pink";
+        ctx.fill();
+
+        // 3. Straight Line
+        ctx.beginPath();
+        ctx.moveTo(20, 150);
+        ctx.lineTo(480, 150);
+        ctx.strokeStyle = "black";
+        ctx.lineWidth = 2;
+        ctx.stroke();
+
+        // 4. Text inside Canvas
+        ctx.font = "24px Arial";
+        ctx.fillStyle = "darkblue";
+        ctx.fillText("HTML5 Canvas", 170, 250);
+    </script>
+
+</body>
+</html>

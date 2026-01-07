@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>User Management System</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f4f4;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        form {
+            background: #fff;
+            padding: 20px;
+            max-width: 400px;
+            margin: auto;
+            border-radius: 5px;
+        }
+
+        input {
+            width: 100%;
+            padding: 8px;
+            margin: 8px 0;
+        }
+
+        button {
+            padding: 8px 12px;
+            margin-top: 10px;
+            cursor: pointer;
+        }
+
+        table {
+            width: 100%;
+            margin-top: 30px;
+            border-collapse: collapse;
+            background: #fff;
+        }
+
+        th, td {
+            border: 1px solid #ccc;
+            padding: 8px;
+            text-align: center;
+        }
+
+        th {
+            background-color: #eee;
+        }
+
+        .delete-btn {
+            background-color: red;
+            color: white;
+            border: none;
+        }
+
+        .clear-btn {
+            background-color: black;
+            color: white;
+            margin-top: 15px;
+        }
+
+        #error {
+            color: red;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+<h1>User Registration System</h1>
+
+<!-- Registration Form -->
+<form onsubmit="registerUser(event)">
+    <input type="text" id="name" placeholder="Name">
+    <input type="email" id="email" placeholder="Email">
+    <input type="text" id="mobile" placeholder="Mobile Number">
+    <input type="password" id="password" placeholder="Password">
+
+    <button type="submit">Register</button>
+    <p id="error"></p>
+</form>
+
+<!-- Users Table -->
+<table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Mobile</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody id="userTable"></tbody>
+</table>
+
+<center>
+    <button class="clear-btn" onclick="clearAllUsers()">Clear All Users</button>
+</center>
+
+<script>
+    function getUsers() {
+        return JSON.parse(localStorage.getItem("users")) || [];
+    }
+
+    function saveUsers(users) {
+        localStorage.setItem("users", JSON.stringify(users));
+    }
+
+    function registerUser(event) {
+        event.preventDefault();
+        document.getElementById("error").textContent = "";
+
+        const name = document.getElementById("name").value.trim();
+        const email = document.getElementById("email").value.trim();
+        const mobile = document.getElementById("mobile").value.trim();
+        const password = document.getElementById("password").value;
+
+        if (!name || !email || !mobile || !password) {
+            showError("All fields are mandatory");
+            return;
+        }
+
+        if (mobile.length !== 10 || isNaN(mobile)) {
+            showError("Mobile number must be 10 digits");
+            return;
+        }
+
+        if (password.length < 6) {
+            showError("Password must be at least 6 characters");
+            return;
+        }
+
+        let users = getUsers();
+
+        const duplicate = users.find(user => user.email === email);
+        if (duplicate) {
+            showError("Email already registered");
+            return;
+        }
+
+        users.push({ name, email, mobile, password });
+        saveUsers(users);
+        loadUsers();
+        document.querySelector("form").reset();
+    }
+
+    function loadUsers() {
+        const table = document.getElementById("userTable");
+        table.innerHTML = "";
+
+        const users = getUsers();
+        users.forEach((user, index) => {
+            table.innerHTML += `
+                <tr>
+                    <td>${user.name}</td>
+                    <td>${user.email}</td>
+                    <td>${user.mobile}</td>
+                    <td>
+                        <button class="delete-btn" onclick="deleteUser(${index})">Delete</button>
+                    </td>
+                </tr>
+            `;
+        });
+    }
+
+    function deleteUser(index) {
+        let users = getUsers();
+        users.splice(index, 1);
+        saveUsers(users);
+        loadUsers();
+    }
+
+    function clearAllUsers() {
+        localStorage.removeItem("users");
+        loadUsers();
+    }
+
+    function showError(message) {
+        document.getElementById("error").textContent = message;
+    }
+
+    loadUsers();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>HTML5 Audio and Video Example</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f4f8;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 30px;
+        }
+
+        h2 {
+            margin-top: 30px;
+            color: #333;
+        }
+
+        .player-container {
+            margin-bottom: 40px;
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 10px rgba(0,0,0,0.1);
+            width: 500px;
+            text-align: center;
+        }
+
+        button {
+            margin: 5px;
+            padding: 8px 15px;
+            border: none;
+            border-radius: 5px;
+            background-color: #090909;
+            color: white;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #060606;
+        }
+
+        input[type="range"] {
+            width: 150px;
+            vertical-align: middle;
+        }
+
+        #audio-time, #video-time {
+            margin-left: 10px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- AUDIO PLAYER -->
+    <div class="player-container">
+        <h2>Audio Player</h2>
+        <p>Click Play to hear the audio</p>
+
+        <audio id="audio" src="Audio.mp3"></audio><br><br>
+
+        <button onclick="playAudio()">Play</button>
+        <button onclick="pauseAudio()">Pause</button>
+
+        <br><br>
+        Volume:
+        <input type="range" min="0" max="1" step="0.01"
+               value="0.5" onchange="setAudioVolume(this.value)">
+        <span id="audio-time">0:00</span>
+    </div>
+
+    <!-- VIDEO PLAYER -->
+    <div class="player-container">
+        <h2>Video Player</h2>
+
+        <video id="video" width="480" height="270" src="Video.mp4"></video><br><br>
+
+        <button onclick="playVideo()">Play</button>
+        <button onclick="pauseVideo()">Pause</button>
+
+        <br><br>
+        Volume:
+        <input type="range" min="0" max="1" step="0.01"
+               value="0.5" onchange="setVideoVolume(this.value)">
+        <span id="video-time">0:00</span>
+    </div>
+
+    <script>
+        // AUDIO
+        const audio = document.getElementById("audio");
+        const audioTime = document.getElementById("audio-time");
+
+        function playAudio() {
+            audio.play();
+        }
+
+        function pauseAudio() {
+            audio.pause();
+        }
+
+        function setAudioVolume(value) {
+            audio.volume = value;
+        }
+
+        audio.addEventListener("timeupdate", () => {
+            let minutes = Math.floor(audio.currentTime / 60);
+            let seconds = Math.floor(audio.currentTime % 60);
+            if (seconds < 10) seconds = "0" + seconds;
+            audioTime.textContent = `${minutes}:${seconds}`;
+        });
+
+        // VIDEO
+        const video = document.getElementById("video");
+        const videoTime = document.getElementById("video-time");
+
+        function playVideo() {
+            video.play();
+        }
+
+        function pauseVideo() {
+            video.pause();
+        }
+
+        function setVideoVolume(value) {
+            video.volume = value;
+        }
+
+        video.addEventListener("timeupdate", () => {
+            let minutes = Math.floor(video.currentTime / 60);
+            let seconds = Math.floor(video.currentTime % 60);
+            if (seconds < 10) seconds = "0" + seconds;
+            videoTime.textContent = `${minutes}:${seconds}`;
+        });
+    </script>
+
+</body>
+</html>
