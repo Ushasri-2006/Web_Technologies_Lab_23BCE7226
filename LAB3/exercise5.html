@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+.stage { display:none; }
+.active { display:block; }
+progress { width:200px; }
+</style>
+</head>
+<body>
+
+<h2>Multi-Stage Form</h2>
+<progress id="bar" value="1" max="4"></progress>
+
+<form id="form">
+  <div class="stage active">Name: <input id="name"></div>
+  <div class="stage">Email: <input id="email"></div>
+  <div class="stage">Age: <input id="age"></div>
+  <div class="stage">Confirm: <input id="confirm"></div>
+</form>
+
+<button onclick="next()">Next</button>
+
+<script>
+let stage = 0;
+const stages = document.querySelectorAll(".stage");
+
+function next() {
+  if(stages[stage].querySelector("input").value==="") {
+    alert("Fill the field");
+    return;
+  }
+  stages[stage].classList.remove("active");
+  stage++;
+  if(stage < stages.length) {
+    stages[stage].classList.add("active");
+    bar.value = stage + 1;
+  } else {
+    alert("Form Submitted Successfully!");
+  }
+}
+</script>
+</body>
+</html>

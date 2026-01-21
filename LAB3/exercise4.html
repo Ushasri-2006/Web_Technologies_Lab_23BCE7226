@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>User Activity Monitor</title>
+  <style>
+    body { font-family: Arial; }
+    #log { border: 1px solid black; padding: 10px; height: 200px; overflow-y: scroll; }
+    .warning { color: red; font-weight: bold; }
+  </style>
+</head>
+<body>
+
+<h2>Real-Time User Activity Monitor</h2>
+
+<input type="text" placeholder="Focus here">
+<button>Click Me</button>
+
+<div id="log"></div>
+<p id="warning" class="warning"></p>
+
+<button onclick="resetLog()">Reset</button>
+<button onclick="exportLog()">Export Log</button>
+
+<script>
+let activityLog = [];
+let clickCount = 0;
+
+/* 1️⃣ Log Activity Function */
+function logActivity(type, target) {
+  const activity = {
+    event: type,
+    element: target.tagName,
+    time: new Date().toLocaleTimeString()
+  };
+
+  activityLog.push(activity);
+  updateLog();
+
+  // 5️⃣ Suspicious Activity Check
+  if (type === "click") {
+    clickCount++;
+    if (clickCount > 5) {
+      document.getElementById("warning").innerText =
+        "⚠ Suspicious Activity: Too many clicks!";
+    }
+  }
+}
+
+/* 2️⃣ Event Listeners (Capturing + Bubbling) */
+
+// Capturing phase
+document.addEventListener("click", e => {
+  logActivity("click (capturing)", e.target);
+}, true);
+
+// Bubbling phase
+document.addEventListener("click", e => {
+  logActivity("click (bubbling)", e.target);
+}, false);
+
+// Key Press
+document.addEventListener("keydown", e => {
+  logActivity("key press", e.target);
+});
+
+// Focus Event
+document.addEventListener("focus", e => {
+  logActivity("focus", e.target);
+}, true);
+
+/* 3️⃣ Update Activity Log in DOM */
+function updateLog() {
+  const logDiv = document.getElementById("log");
+  logDiv.innerHTML = "";
+
+  activityLog.forEach(act => {
+    logDiv.innerHTML +=
+      `${act.time} - ${act.event} on <b>${act.element}</b><br>`;
+  });
+}
+
+/* 6️⃣ Reset Log */
+function resetLog() {
+  activityLog = [];
+  clickCount = 0;
+  document.getElementById("warning").innerText = "";
+  updateLog();
+}
+
+/* 6️⃣ Export Log */
+function exportLog() {
+  let text = "User Activity Log\n\n";
+
+  activityLog.forEach(a => {
+    text += `${a.time} | ${a.event} | ${a.element}\n`;
+  });
+
+  alert(text);
+}
+</script>
+
+</body>
+</html>

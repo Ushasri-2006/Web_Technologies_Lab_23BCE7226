@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Adaptive Registration System</title>
+  <style>
+    .error {
+      color: red;
+      font-size: 14px;
+    }
+    .invalid {
+      border: 2px solid red;
+    }
+  </style>
+</head>
+<body>
+
+<h2>Registration Form</h2>
+
+<form id="regForm" onsubmit="return validateForm()">
+
+  Name:
+  <input type="text" id="name"><br>
+  <div class="error" id="nameError"></div>
+
+  Email:
+  <input type="text" id="email"><br>
+  <div class="error" id="emailError"></div>
+
+  Password:
+  <input type="password" id="password"><br>
+  <div class="error" id="passwordError"></div>
+
+  Confirm Password:
+  <input type="password" id="confirmPassword"><br>
+  <div class="error" id="confirmError"></div>
+
+  Age:
+  <input type="number" id="age"><br>
+  <div class="error" id="ageError"></div>
+
+  Role:
+  <select id="role" onchange="changeRoleRules()">
+    <option value="">Select Role</option>
+    <option value="student">Student</option>
+    <option value="teacher">Teacher</option>
+    <option value="admin">Admin</option>
+  </select><br>
+  <div class="error" id="roleError"></div>
+
+  <div id="skillsDiv" style="display:none;">
+    Skills:
+    <input type="text" id="skills"><br>
+  </div>
+
+  <br>
+  <button type="submit">Register</button>
+
+</form>
+
+<script>
+
+/* 1️⃣ Show / Hide fields based on role */
+function changeRoleRules() {
+  const role = document.getElementById("role").value;
+  const skillsDiv = document.getElementById("skillsDiv");
+
+  skillsDiv.style.display = (role === "teacher") ? "block" : "none";
+}
+
+/* 2️⃣ Email Domain Validation */
+function validateEmail(email) {
+  return email.endsWith("@gmail.com") || email.endsWith("@edu.in");
+}
+
+/* 3️⃣ Password Strength Validation */
+function validatePassword(password, role) {
+  if (role === "admin") {
+    return /(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&]).{8,}/.test(password);
+  }
+  return password.length >= 6;
+}
+
+/* 4️⃣ Main Validation Function */
+function validateForm() {
+  let valid = true;
+
+  // Clear previous errors
+  document.querySelectorAll(".error").forEach(e => e.innerText = "");
+  document.querySelectorAll("input, select").forEach(i => i.classList.remove("invalid"));
+
+  const name = document.getElementById("name");
+  const email = document.getElementById("email");
+  const password = document.getElementById("password");
+  const confirmPassword = document.getElementById("confirmPassword");
+  const age = document.getElementById("age");
+  const role = document.getElementById("role");
+
+  // Name
+  if (name.value.trim() === "") {
+    showError(name, "nameError", "Name is required");
+    valid = false;
+  }
+
+  // Email
+  if (!validateEmail(email.value)) {
+    showError(email, "emailError", "Invalid email domain");
+    valid = false;
+  }
+
+  // Role
+  if (role.value === "") {
+    showError(role, "roleError", "Role is required");
+    valid = false;
+  }
+
+  // Password
+  if (!validatePassword(password.value, role.value)) {
+    showError(password, "passwordError",
+      role.value === "admin"
+      ? "Admin password must be strong"
+      : "Password must be at least 6 characters");
+    valid = false;
+  }
+
+  // Confirm Password
+  if (password.value !== confirmPassword.value) {
+    showError(confirmPassword, "confirmError", "Passwords do not match");
+    valid = false;
+  }
+
+  // Age Rules
+  if (
+    (role.value === "student" && age.value < 18) ||
+    (role.value === "teacher" && age.value < 25) ||
+    (role.value === "admin" && age.value < 30)
+  ) {
+    showError(age, "ageError", "Age not valid for selected role");
+    valid = false;
+  }
+
+  if (valid) {
+    alert("Registration Successful!");
+  }
+
+  return valid; // Prevent submission if false
+}
+
+/* 5️⃣ Reusable Error Function */
+function showError(input, errorId, message) {
+  input.classList.add("invalid");
+  document.getElementById(errorId).innerText = message;
+}
+
+</script>
+
+</body>
+</html>
