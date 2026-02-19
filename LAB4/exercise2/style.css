@@ -1,0 +1,36 @@
+body {
+    font-family: Arial;
+    background-color: #f2f2f2;
+}
+
+.container {
+    width: 500px;
+    margin: 80px auto;
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+}
+
+input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+}
+
+.product {
+    border-bottom: 1px solid #ccc;
+    padding: 10px 0;
+}
+
+.loading {
+    display: none;
+    color: blue;
+}
+
+.error {
+    color: red;
+}
+
+.no-result {
+    color: gray;
+}

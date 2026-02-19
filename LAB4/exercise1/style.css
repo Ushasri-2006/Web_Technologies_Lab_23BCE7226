@@ -1,0 +1,48 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f2f2f2;
+}
+
+.container {
+    width: 350px;
+    margin: 100px auto;
+    padding: 20px;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+input {
+    width: 100%;
+    padding: 8px;
+    margin-top: 5px;
+}
+
+button {
+    margin-top: 15px;
+    padding: 8px;
+    width: 100%;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+}
+
+#feedback {
+    display: block;
+    margin-top: 8px;
+    font-size: 14px;
+}
+
+.available {
+    color: green;
+}
+
+.taken {
+    color: red;
+}
+
+.loading {
+    display: none;
+    font-size: 13px;
+    color: blue;
+}
