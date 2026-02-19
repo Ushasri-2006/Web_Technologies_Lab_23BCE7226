@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<library>
+    <book>
+        <id>101</id>
+        <title>The Alchemist</title>
+        <author>Paulo Coelho</author>
+        <status>Available</status>
+    </book>
+    <book>
+        <id>102</id>
+        <title>1984</title>
+        <author>George Orwell</author>
+        <status>Borrowed</status>
+    </book>
+</library>

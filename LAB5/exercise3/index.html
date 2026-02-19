@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Student Record System</title>
+    <style>
+        table, th, td { border: 1px solid black; border-collapse: collapse; padding: 8px; }
+        th { background-color: #f2f2f2; }
+        input, select { margin: 5px; }
+        .message { margin: 10px 0; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <h1>Student Record System</h1>
+
+    <!-- Student Table -->
+    <h2>Students</h2>
+    <table id="studentTable">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Course</th>
+                <th>Marks</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+
+    <div class="message" id="msg"></div>
+
+    <!-- Add Student -->
+    <h2>Add Student</h2>
+    <input type="number" id="addId" placeholder="ID">
+    <input type="text" id="addName" placeholder="Name">
+    <input type="text" id="addCourse" placeholder="Course">
+    <input type="number" id="addMarks" placeholder="Marks">
+    <button onclick="addStudent()">Add</button>
+
+    <!-- Update Student -->
+    <h2>Update Student</h2>
+    <input type="number" id="updateId" placeholder="ID to update">
+    <input type="text" id="updateCourse" placeholder="New Course">
+    <input type="number" id="updateMarks" placeholder="New Marks">
+    <button onclick="updateStudent()">Update</button>
+
+    <!-- Delete Student -->
+    <h2>Delete Student</h2>
+    <input type="number" id="deleteId" placeholder="ID to delete">
+    <button onclick="deleteStudent()">Delete</button>
+
+    <script src="script.js"></script>
+</body>
+</html>

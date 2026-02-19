@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Product Inventory System</title>
+    <style>
+        table, th, td { border: 1px solid black; border-collapse: collapse; padding: 8px; }
+        th { background-color: #f2f2f2; }
+        input, select { margin: 5px; }
+        .message { margin: 10px 0; font-weight: bold; }
+        .low-stock { background-color: #ffcccc; }
+    </style>
+</head>
+<body>
+    <h1>Product Inventory System</h1>
+
+    <!-- Inventory Table -->
+    <h2>Inventory</h2>
+    <input type="text" id="searchCategory" placeholder="Search by Category">
+    <button onclick="searchCategory()">Search</button>
+    <button onclick="loadInventory()">Reset</button>
+
+    <table id="inventoryTable">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Category</th>
+                <th>Price</th>
+                <th>Stock</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+        <tfoot>
+            <tr>
+                <td colspan="6">Total Inventory Value: <span id="totalValue">0</span></td>
+            </tr>
+        </tfoot>
+    </table>
+
+    <div class="message" id="msg"></div>
+
+    <!-- Add Product -->
+    <h2>Add Product</h2>
+    <input type="number" id="addId" placeholder="Product ID">
+    <input type="text" id="addName" placeholder="Name">
+    <input type="text" id="addCategory" placeholder="Category">
+    <input type="number" id="addPrice" placeholder="Price">
+    <input type="number" id="addStock" placeholder="Stock Quantity">
+    <button onclick="addProduct()">Add</button>
+
+    <!-- Update Product -->
+    <h2>Update Product</h2>
+    <input type="number" id="updateId" placeholder="Product ID">
+    <input type="number" id="updatePrice" placeholder="New Price">
+    <input type="number" id="updateStock" placeholder="New Stock">
+    <button onclick="updateProduct()">Update</button>
+
+    <!-- Delete Product -->
+    <h2>Delete Product</h2>
+    <input type="number" id="deleteId" placeholder="Product ID">
+    <button onclick="deleteProduct()">Delete</button>
+
+    <script src="script.js"></script>
+</body>
+</html>

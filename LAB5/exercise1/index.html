@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Employee Management System</title>
+    <style>
+        table, th, td { border: 1px solid black; border-collapse: collapse; padding: 8px; }
+        th { background-color: #f2f2f2; }
+        input { margin: 5px; }
+        .message { margin: 10px 0; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <h1>Employee Management System</h1>
+
+    <!-- Employee Table -->
+    <h2>Employees</h2>
+    <table id="employeeTable">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Department</th>
+                <th>Salary</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+
+    <div class="message" id="msg"></div>
+
+    <!-- Add Employee -->
+    <h2>Add Employee</h2>
+    <input type="text" id="addId" placeholder="ID">
+    <input type="text" id="addName" placeholder="Name">
+    <input type="text" id="addDept" placeholder="Department">
+    <input type="number" id="addSalary" placeholder="Salary">
+    <button onclick="addEmployee()">Add</button>
+
+    <!-- Update Employee -->
+    <h2>Update Employee</h2>
+    <input type="text" id="updateId" placeholder="ID to update">
+    <input type="text" id="updateDept" placeholder="New Department">
+    <input type="number" id="updateSalary" placeholder="New Salary">
+    <button onclick="updateEmployee()">Update</button>
+
+    <!-- Delete Employee -->
+    <h2>Delete Employee</h2>
+    <input type="text" id="deleteId" placeholder="ID to delete">
+    <button onclick="deleteEmployee()">Delete</button>
+
+    <script src="script.js"></script>
+</body>
+</html>
