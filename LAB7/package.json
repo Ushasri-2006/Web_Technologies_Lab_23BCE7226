@@ -1,0 +1,26 @@
+{
+  "name": "webtechnologieslab",
+  "version": "1.0.0",
+  "description": "first",
+  "homepage": "https://github.com/Ushasri-2006/Web_Technologies_Lab_23BCE7226#readme",
+  "bugs": {
+    "url": "https://github.com/Ushasri-2006/Web_Technologies_Lab_23BCE7226/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Ushasri-2006/Web_Technologies_Lab_23BCE7226.git"
+  },
+  "license": "ISC",
+  "author": "",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "body-parser": "^2.2.2",
+    "cors": "^2.8.6",
+    "express": "^5.2.1",
+    "mongodb": "^7.1.0"
+  }
+}

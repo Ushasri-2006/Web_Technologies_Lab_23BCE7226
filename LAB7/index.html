@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Student Notes Manager</title>
+</head>
+
+<body>
+
+<h2>Add Note</h2>
+
+<input id="title" placeholder="Title"><br><br>
+<input id="subject" placeholder="Subject"><br><br>
+<textarea id="description" placeholder="Description"></textarea><br><br>
+
+<button onclick="addNote()">Add Note</button>
+
+<h2>Notes</h2>
+
+<div id="notes"></div>
+
+<script>
+
+async function addNote(){
+
+const title=document.getElementById("title").value
+const subject=document.getElementById("subject").value
+const description=document.getElementById("description").value
+
+await fetch("http://localhost:3000/notes",{
+method:"POST",
+headers:{"Content-Type":"application/json"},
+body:JSON.stringify({title,subject,description})
+})
+
+loadNotes()
+}
+
+async function loadNotes(){
+
+const res=await fetch("http://localhost:3000/notes")
+const data=await res.json()
+
+let output=""
+
+data.forEach(note=>{
+output+=`
+<div style="border:1px solid black;padding:10px;margin:10px">
+<h3>${note.title}</h3>
+<p>${note.subject}</p>
+<p>${note.description}</p>
+
+<button onclick="editNote('${note._id}','${note.title}','${note.description}')">Edit</button>
+
+<button onclick="deleteNote('${note._id}')">Delete</button>
+
+</div>
+`
+})
+
+document.getElementById("notes").innerHTML=output
+}
+
+async function deleteNote(id){
+
+await fetch("http://localhost:3000/notes/"+id,{
+method:"DELETE"
+})
+
+loadNotes()
+}
+
+async function editNote(id,title,description){
+
+const newTitle=prompt("Edit Title",title)
+const newDescription=prompt("Edit Description",description)
+
+await fetch("http://localhost:3000/notes/"+id,{
+method:"PUT",
+headers:{"Content-Type":"application/json"},
+body:JSON.stringify({
+title:newTitle,
+description:newDescription
+})
+})
+
+loadNotes()
+}
+
+loadNotes()
+
+</script>
+
+</body>
+</html>
