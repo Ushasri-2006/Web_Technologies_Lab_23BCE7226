@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Exercise 2</title>
+</head>
+<body>
+
+<h2>Student Object</h2>
+<div id="output">Waiting...</div>
+
+<script>
+
+// Step 1: Take input
+let sid = Number(prompt("Enter Student ID:"));
+let sname = prompt("Enter Name:");
+let dept = prompt("Enter Department:");
+let smarks = Number(prompt("Enter Marks:"));
+
+// Step 2: Create object
+const student = {
+    id: sid,
+    name: sname,
+    department: dept,
+    marks: smarks
+};
+
+// Step 3: Destructuring
+const { id, name, department, marks } = student;
+
+let output = id + " " + name + " " + department + " " + marks + "<br>";
+
+// Step 4: Grade logic
+let grade;
+if (marks >= 90) grade = "A";
+else if (marks >= 75) grade = "B";
+else if (marks >= 50) grade = "C";
+else grade = "Fail";
+
+// Step 5: Spread operator
+const updatedStudent = {
+    ...student,
+    grade: grade
+};
+
+// Step 6: Display
+document.getElementById("output").innerHTML =
+    output + JSON.stringify(updatedStudent);
+
+</script>
+
+</body>
+</html>

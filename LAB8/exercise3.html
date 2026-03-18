@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Exercise 3</title>
+</head>
+<body>
+
+<h2>Course Enrollment</h2>
+<div id="output">Waiting...</div>
+
+<script>
+
+// Step 1: Take input
+let courseName = prompt("Enter Course Name:");
+let instructor = prompt("Enter Instructor Name:");
+let seats = prompt("Are seats available? (yes/no)");
+
+// Step 2: Class
+class Course {
+    constructor(courseName, instructor) {
+        this.courseName = courseName;
+        this.instructor = instructor;
+    }
+
+    displayCourse() {
+        return "Course: " + this.courseName + ", Instructor: " + this.instructor;
+    }
+}
+
+// Step 3: Create object
+let course1 = new Course(courseName, instructor);
+
+// Step 4: Promise
+let enrollCourse = new Promise(function(resolve, reject) {
+    if (seats && seats.toLowerCase() === "yes") {
+        resolve("Enrollment Successful");
+    } else {
+        reject("Course Full");
+    }
+});
+
+// Step 5: Show output
+enrollCourse.then(function(msg) {
+    document.getElementById("output").innerHTML =
+        course1.displayCourse() + "<br>" + msg;
+}).catch(function(err) {
+    document.getElementById("output").innerHTML =
+        course1.displayCourse() + "<br>" + err;
+});
+
+</script>
+
+</body>
+</html>
